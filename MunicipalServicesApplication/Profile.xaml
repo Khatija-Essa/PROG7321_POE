@@ -1,0 +1,109 @@
+﻿<Window x:Class="MunicipalServicesApplication.Profile"
+       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Profile" Height="500" Width="600" Background="#1E1E1E">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#035772"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#1E90FF"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Width" Value="180"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect ShadowDepth="3" Opacity="0.5" BlurRadius="4"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Content="{TemplateBinding Content}"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#A5C8D4"/>
+                    <Setter Property="BorderBrush" Value="#1E90FF"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                    <!-- Added this line -->
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Back to Home"
+                   FontSize="16"
+                   Foreground="#A5C8D4"
+                   HorizontalAlignment="Right"
+                   Margin="10"
+                   Cursor="Hand"
+                   TextDecorations="Underline"
+                   MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"/>
+
+        <Grid Grid.Row="1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="User Profile" 
+                           FontSize="18"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           HorizontalAlignment="Center"
+                           Margin="10"/>
+
+                <Label Content="Profile Image:" Foreground="White" HorizontalAlignment="Center"/>
+                <Grid Width="120" Height="120">
+                    <Ellipse Width="120" Height="120" Stroke="White" StrokeThickness="2">
+                        <Ellipse.Fill>
+                            <ImageBrush x:Name="ProfileImageBrush"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                </Grid>
+                <Button Content="Upload Image" Click="UploadImage_Click" Margin="10" HorizontalAlignment="Center"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Margin="20" VerticalAlignment="Center">
+                <Label Content="Username:" Foreground="White" HorizontalAlignment="Left"/>
+                <TextBox Name="txtUsername" Margin="5" IsReadOnly="True" Background="Transparent" Foreground="White" Width="250"/>
+
+                <Label Content="Address:" Foreground="White" HorizontalAlignment="Left"/>
+                <TextBox Name="txtAddress" Margin="5" Background="Transparent" Foreground="White" Width="250"/>
+
+                <Label Content="Email:" Foreground="White" HorizontalAlignment="Left"/>
+                <TextBox Name="txtEmail" Margin="5" Background="Transparent" Foreground="White" Width="250"/>
+
+                <Label Content="Mobile Number:" Foreground="White" HorizontalAlignment="Left"/>
+                <TextBox Name="txtMobileNumber" Margin="5" Background="Transparent" Foreground="White" Width="250"/>
+
+                <Button Content="Save" Click="SaveProfile_Click" Margin="10" HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
