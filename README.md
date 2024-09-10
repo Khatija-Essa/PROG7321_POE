@@ -12,7 +12,7 @@ Customizable User Profiles: Users can create and customize their profiles. Custo
 # Prerequisites
 .NET Framework 8.0 or later
 Visual Studio 2022 or later
-SQL Server Management Studio (SSMS) for database operations
+SQL Server Management Studio (SSMS) for database operations (for the user profile)
 Installation
 1. Clone the Repository
 
@@ -31,7 +31,7 @@ Installation
 4. Set Up the Database
 
 - Ensure SQL Server is installed and running.
-- Create a new database named MunicipalServicesDB.
+- Create a new database named MunicipalServicesDB. (for user profiles)
 - Execute the SQL scripts provided in the DatabaseScripts folder to set up the necessary tables and schema.
 5. Build and Run the Application
 
@@ -77,7 +77,8 @@ Installation
 - Description: Provide a detailed description of the issue.
 - Attach Media: Optionally, attach images related to the issue. Images are saved in a folder named Images within the application directory.
 - Submit: Submit the report. A confirmation message will appear, and the form will reset.
-- go main to main page. user cn return back to the mainwindows form.
+- Go main to main page. user cn return back to the mainwindows form.
+- All data is saved in a list on the report an issue form.
 
   ![VCDN-BCA3 - 2024-09-10T200118 - lab-2271f54a-c899-4627-8a1b-0265c056dd29 westeurope cloudapp azure com_7123 - Remote Desktop Connection 2024_09_10 21_33_51](https://github.com/user-attachments/assets/022a3fcb-1da8-4037-bc93-ac71938a83dc)
 
