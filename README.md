@@ -27,6 +27,8 @@ Installation
 3. Restore NuGet Packages
 
 - In Visual Studio, restore the NuGet packages by right-clicking on the solution in Solution Explorer and selecting Restore NuGet Packages.
+- the NuGet Oackes in this applicatio are:
+  - System.Data.SqlClient
 
 4. Set Up the Database
 
