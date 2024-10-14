@@ -21,6 +21,27 @@ namespace MunicipalServicesApplication
         public ReportIssues()
         {
             InitializeComponent();
+            InitializeHardcodedIssues();
+            DisplayReportedIssues();
+        }
+
+        private void InitializeHardcodedIssues()
+        {
+            // Adding some pre-defined issues to the list
+            reportedIssues.Add(new Issue { Location = "Durban North", Category = "Roads", Description = "Large pothole near the intersection", MediaPath = @"C:\Images\pothole.jpg" });
+            reportedIssues.Add(new Issue { Location = "Umhlanga", Category = "Sanitation", Description = "Overflowing trash bins", MediaPath = @"C:\Images\trash.jpg" });
+        }
+
+        private void DisplayReportedIssues()
+        {
+            // Clear existing items in the ListBox (you need to add this ListBox to your XAML)
+            lstReportedIssues.Items.Clear();
+
+            // Add each issue to the ListBox
+            foreach (var issue in reportedIssues)
+            {
+                lstReportedIssues.Items.Add($"{issue.Category} - {issue.Location}: {issue.Description}");
+            }
         }
 
         private void btnAttachMedia_Click(object sender, RoutedEventArgs e)
@@ -33,6 +54,7 @@ namespace MunicipalServicesApplication
             if (open.ShowDialog() == true) // Use 'true' for DialogResult in WPF
             {
                 txtMediaFileName.Text = open.FileName;
+                _selectedMediaPath = open.FileName;
 
                 // Create a new BitmapImage to load the image
                 BitmapImage bitmapImage = new BitmapImage();
@@ -48,7 +70,6 @@ namespace MunicipalServicesApplication
             }
         }
 
-
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
             var issueLocation = txtLocation.Text.Trim(); // Get and trim the location text
@@ -61,7 +82,12 @@ namespace MunicipalServicesApplication
              *Creater : Haritha Computer & Technology
              */
 
-            File.Copy(txtMediaFileName.Text, Path.Combine(@"C:\Users\lab_services_student\source\repos\MunicipalServicesApplication\MunicipalServicesApplication\Images\", Path.GetFileName(txtMediaFileName.Text)), true);
+            if (!string.IsNullOrEmpty(_selectedMediaPath))
+            {
+                string destinationPath = Path.Combine(@"C:\Users\lab_services_student\source\repos\MunicipalServicesApplication\MunicipalServicesApplication\Images\", Path.GetFileName(_selectedMediaPath));
+                File.Copy(_selectedMediaPath, destinationPath, true);
+                _selectedMediaPath = destinationPath;
+            }
 
             // Check if a category is selected
             if (string.IsNullOrWhiteSpace(issueCategory))
@@ -70,12 +96,13 @@ namespace MunicipalServicesApplication
                 return;
             }
 
-            // Store the information into the list instead of the database
+            // Store the information into the list
             InsertIssueToList(issueLocation, issueCategory, issueDescription, _selectedMediaPath);
 
             // Display message to show the issue was successfully reported 
             MessageBox.Show("Your issue has been reported successfully!");
             ResetForm();
+            DisplayReportedIssues();
         }
 
         // Define the Issue class to hold the issue details

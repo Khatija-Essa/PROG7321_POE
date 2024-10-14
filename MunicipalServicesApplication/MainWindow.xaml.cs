@@ -45,5 +45,13 @@ namespace MunicipalServicesApplication
                 this.Close(); // Close the MainWindow
             }
         }
+
+        private void btnLocalEvents_Click(object sender, RoutedEventArgs e)
+        {
+            LocalEventsForm eventsForm = new LocalEventsForm();
+            eventsForm.Show();
+            this.Close();
+
+        }
     }
 }

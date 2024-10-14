@@ -1,7 +1,7 @@
 ﻿<Window x:Class="MunicipalServicesApplication.Register"
          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Register" Height="500" Width="600" Background="#1E1E1E">
+        Title="Register" Height="600" Width="1000" Background="#1E1E1E">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Background" Value="#035772"/>
@@ -11,12 +11,13 @@
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Padding" Value="5"/>
             <Setter Property="Margin" Value="5"/>
-            <Setter Property="Width" Value="180"/>
+            <Setter Property="Width" Value="200"/>
             <Setter Property="Height" Value="40"/>
             <Setter Property="BorderThickness" Value="2"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="16"/>
             <Setter Property="Effect">
                 <Setter.Value>
                     <DropShadowEffect ShadowDepth="3" Opacity="0.5" BlurRadius="4"/>
@@ -43,7 +44,6 @@
                     <Setter Property="Background" Value="#A5C8D4"/>
                     <Setter Property="BorderBrush" Value="#1E90FF"/>
                     <Setter Property="Foreground" Value="Black"/>
-
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -56,7 +56,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock Text="Register" 
-                   FontSize="24" 
+                   FontSize="28" 
                    FontWeight="Bold" 
                    Foreground="White" 
                    HorizontalAlignment="Center" 
@@ -64,7 +64,7 @@
                    Margin="20"/>
 
         <TextBlock Text="Back to Login" 
-                   FontSize="16" 
+                   FontSize="18" 
                    Foreground="LightBlue" 
                    HorizontalAlignment="Right" 
                    VerticalAlignment="Top" 
@@ -73,9 +73,9 @@
                    TextDecorations="Underline" 
                    MouseDown="BackToHome_Click"/>
 
-        <Grid Grid.Row="1" Margin="20">
+        <Grid Grid.Row="1" Margin="40,20,40,20">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -88,45 +88,45 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <Label Content="Username:" Foreground="White" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Margin="5"/>
-            <TextBox Name="txtRegUsername" Width="350" Height="35" Grid.Column="1" Grid.Row="0" Margin="5" 
+            <Label Content="Username:" Foreground="White" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Margin="5" FontSize="16"/>
+            <TextBox Name="txtRegUsername" Width="500" Height="40" Grid.Column="1" Grid.Row="0" Margin="5" 
                      Background="Transparent" Foreground="White" 
                      BorderBrush="White" BorderThickness="1"
-                     FontSize="18"/>
+                     FontSize="18" VerticalContentAlignment="Center"/>
 
-            <Label Content="Password:" Foreground="White" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Margin="5"/>
-            <PasswordBox Name="txtRegPassword" Width="350" Height="35" Grid.Column="1" Grid.Row="1" Margin="5" 
+            <Label Content="Password:" Foreground="White" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Margin="5" FontSize="16"/>
+            <PasswordBox Name="txtRegPassword" Width="500" Height="40" Grid.Column="1" Grid.Row="1" Margin="5" 
                          Background="Transparent" Foreground="White" 
                          BorderBrush="White" BorderThickness="1"
-                         FontSize="18"/>
+                         FontSize="18" VerticalContentAlignment="Center"/>
 
-            <Label Content="Confirm Password:" Foreground="White" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Margin="5"/>
-            <PasswordBox Name="txtRegConfirmPassword" Width="350" Height="35" Grid.Column="1" Grid.Row="2" Margin="5" 
+            <Label Content="Confirm Password:" Foreground="White" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Margin="5" FontSize="16"/>
+            <PasswordBox Name="txtRegConfirmPassword" Width="500" Height="40" Grid.Column="1" Grid.Row="2" Margin="5" 
                          Background="Transparent" Foreground="White" 
                          BorderBrush="White" BorderThickness="1"
-                         FontSize="18"/>
+                         FontSize="18" VerticalContentAlignment="Center"/>
 
-            <Label Content="Address:" Foreground="White" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Margin="5"/>
-            <TextBox Name="txtRegAddress" Width="350" Height="35" Grid.Column="1" Grid.Row="3" Margin="5" 
+            <Label Content="Address:" Foreground="White" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Margin="5" FontSize="16"/>
+            <TextBox Name="txtRegAddress" Width="500" Height="40" Grid.Column="1" Grid.Row="3" Margin="5" 
                      Background="Transparent" Foreground="White" 
                      BorderBrush="White" BorderThickness="1"
-                     FontSize="18" TextWrapping="Wrap"/>
+                     FontSize="18" TextWrapping="Wrap" VerticalContentAlignment="Center"/>
 
-            <Label Content="Email:" Foreground="White" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" Margin="5"/>
-            <TextBox Name="txtRegEmail" Width="350" Height="35" Grid.Column="1" Grid.Row="4" Margin="5" 
+            <Label Content="Email:" Foreground="White" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" Margin="5" FontSize="16"/>
+            <TextBox Name="txtRegEmail" Width="500" Height="40" Grid.Column="1" Grid.Row="4" Margin="5" 
                      Background="Transparent" Foreground="White" 
                      BorderBrush="White" BorderThickness="1"
-                     FontSize="18"/>
+                     FontSize="18" VerticalContentAlignment="Center"/>
 
-            <Label Content="Mobile Number:" Foreground="White" Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" Margin="5"/>
-            <TextBox Name="txtRegMobile" Width="350" Height="35" Grid.Column="1" Grid.Row="5" Margin="5" 
+            <Label Content="Mobile Number:" Foreground="White" Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" Margin="5" FontSize="16"/>
+            <TextBox Name="txtRegMobile" Width="500" Height="40" Grid.Column="1" Grid.Row="5" Margin="5" 
                      Background="Transparent" Foreground="White" 
                      BorderBrush="White" BorderThickness="1"
-                     FontSize="18"/>
+                     FontSize="18" VerticalContentAlignment="Center"/>
 
-            <Button Content="Register" Grid.Row="6" Margin="81,10,0,0" 
+            <Button Content="Register" Grid.Row="6" Grid.Column="1" Margin="5,20,0,0" 
                     HorizontalAlignment="Left" 
-                    Click="Button_Click" Grid.Column="1" VerticalAlignment="Top"/>
+                    Click="Button_Click" VerticalAlignment="Top"/>
         </Grid>
     </Grid>
 </Window>
