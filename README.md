@@ -2,12 +2,13 @@
 
 # Municipal Services Application
 Overview
-The Municipal Services Application is a WPF (Windows Presentation Foundation) application designed to enable citizens to report issues and request services for a South African municipality. The application focuses on providing a user-friendly interface for reporting issues, attaching media, and managing user profiles.
+The Municipal Services Application is a WPF (Windows Presentation Foundation) application designed to enable citizens to report issues and request services for a South African municipality. The application focuses on providing a user-friendly interface for reporting issues, attaching media, managing user profiles, and being able to view any local events. 
 
 # Features
-Login and Registration: Users start on the login page and can log in or register for an account. Users can also continue as a guest to report issues.
-Issue Reporting: Citizens can report various issues such as sanitation, roads, and utilities. The application allows attaching media to the report.
-Customizable User Profiles: Users can create and customize their profiles. Customization options include profile image, username, address, email, and mobile number. This strategy encourages active participation by allowing users to personalize their experience.
+1. Login and Registration: Users start on the login page and can log in or register for an account. Users can also continue as a guest to report issues.
+2. Issue Reporting: Citizens can report various issues such as sanitation, roads, and utilities. The application allows attaching media to the report.
+3. Customizable User Profiles: Users can create and customize their profiles. Customization options include profile image, username, address, email, and mobile number. This strategy encourages active participation by allowing users to personalize their experience.
+4. Local Events and Announcements: iew and search for upcoming local events by date and category. The screen displays events in two lists: "Events" and "Recommendations."
 # Getting Started
 # Prerequisites
 .NET Framework 8.0 or later
@@ -91,6 +92,17 @@ Installation
 - Navigation back to Main Menu: From the reporting page, users can navigate back to the main menu.
 
   ![VCDN-BCA3 - 2024-09-10T200118 - lab-2271f54a-c899-4627-8a1b-0265c056dd29 westeurope cloudapp azure com_7123 - Remote Desktop Connection 2024_09_10 21_35_02](https://github.com/user-attachments/assets/73f4fb21-d2da-4229-abbc-45dd3addec1e)
+
+6. Local Events and Announcements
+
+- View and search for upcoming local events by date and category.
+- The screen displays events in two lists: "Events" and "Recommendations."
+- Events are stored in various data structures, including dictionaries, queues, and hash sets, allowing for efficient searching and categorization.
+- Recent search functionality is provided, and searches are stored in a queue for quick access.
+- Users can filter events by date, name or category.
+
+![VCDN-BCA3 - 2024-10-14T161102 - lab-2271f54a-c899-4627-8a1b-0265c056dd29 westeurope cloudapp azure com_7123 - Remote Desktop Connection 2024_10_14 16_22_35](https://github.com/user-attachments/assets/e5214fd9-4293-4721-ba8f-a140d8762868)
+
 
   
 # User Engagement Strategy
