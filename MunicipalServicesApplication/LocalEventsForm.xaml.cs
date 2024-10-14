@@ -44,62 +44,41 @@ namespace MunicipalServicesApplication
             // Populate eventsByDate with sample events
             eventsByDate = new Dictionary<DateTime, List<Event>>
             {
-                { new DateTime(2024, 10, 21), new List<Event> { new Event("Beach Cleanup", new DateTime(2024, 10, 24), "Environment") } },
-                { new DateTime(2024, 10, 28), new List<Event> { new Event("Umhlanga Ladies Taleem", new DateTime(2024, 10, 30), "Culture") } },
-                { new DateTime(2024, 11, 4), new List<Event> { new Event("Voting Day", new DateTime(2024, 11, 7), "Governance") } },
-                { new DateTime(2024, 11, 11), new List<Event> { new Event("Varsity Collage Rugby Game ", new DateTime(2024, 11, 13), "Sports") } },
-                { new DateTime(2024, 10, 17), new List<Event> { new Event("Shongweni Farmers Market", new DateTime(2024, 11, 16), "Community") } },
+                { new DateTime(2024, 10, 24), new List<Event> { new Event("Beach Cleanup", new DateTime(2024, 10, 24), "Environment") } },
+                { new DateTime(2024, 10, 30), new List<Event> { new Event("Umhlanga Ladies Taleem", new DateTime(2024, 10, 30), "Culture") } },
+                { new DateTime(2024, 11, 7), new List<Event> { new Event("Voting Day", new DateTime(2024, 11, 7), "Governance") } },
+                { new DateTime(2024, 11, 13), new List<Event> { new Event("Varsity Collage Rugby Game ", new DateTime(2024, 11, 13), "Sports") } },
+                { new DateTime(2024, 11, 16), new List<Event> { new Event("Shongweni Farmers Market", new DateTime(2024, 11, 16), "Community") } },
                 { new DateTime(2024, 11, 28), new List<Event> { new Event("Music Festival At Chris Saunders Park", new DateTime(2024, 11, 28), "Entertainment") } },
-                { new DateTime(2024, 12, 13), new List<Event> { new Event("Park Run", new DateTime(2024, 12, 14), "Sports") } },
-                { new DateTime(2024, 10, 24), new List<Event> { new Event("Chrimas Party At Grace Family Church", new DateTime(2024, 12, 24), "Community") } }
+                { new DateTime(2024, 12, 14), new List<Event> { new Event("Park Run", new DateTime(2024, 12, 14), "Sports") } },
+                { new DateTime(2024, 12, 24), new List<Event> { new Event("Chrimas Party At Grace Family Church", new DateTime(2024, 12, 24), "Community") } }
             };
 
             // Populate eventsByCategory with sample events
             eventsByCategory = new Dictionary<string, HashSet<Event>>
             {
-                { "environment", new HashSet<Event> { new Event("Community Cleanup", new DateTime(2024, 10, 21), "Environment") } },
-                { "culture", new HashSet<Event> { new Event("Local Art Exhibition", new DateTime(2024, 10, 28), "Culture") } },
-                { "governance", new HashSet<Event> { new Event("Town Hall Meeting", new DateTime(2024, 11, 4), "Governance") } },
+                { "environment", new HashSet<Event> { new Event("Beach Cleanup", new DateTime(2024, 10, 24), "Environment") } },
+                { "culture", new HashSet<Event> { new Event("Umhlanga Ladies Taleem", new DateTime(2024, 10, 30), "Culture") } },
+                { "governance", new HashSet<Event> { new Event("Voting Day", new DateTime(2024, 11, 7), "Governance") } },
                 { "sports", new HashSet<Event> {
-                    new Event("Sports Tournament", new DateTime(2024, 11, 11), "Sports"),
-                    new Event("Charity Run", new DateTime(2024, 12, 13), "Sports")
+                    new Event("Varsity Collage Rugby Game", new DateTime(2024, 11, 13), "Sports"),
+                    new Event("Park Run", new DateTime(2024, 12, 14), "Sports")
                 } },
-                { "technology", new HashSet<Event> { new Event("Tech Meetup", new DateTime(2024, 10, 24), "Technology") } },
-                { "community", new HashSet<Event> { new Event("Farmers Market", new DateTime(2024, 10, 17), "Community") } },
-                { "entertainment", new HashSet<Event> { new Event("Music Festival", new DateTime(2024, 11, 28), "Entertainment") } }
+                { "community", new HashSet<Event> {
+                    new Event("Shongweni Farmers Market", new DateTime(2024, 11, 16), "Community"),
+                    new Event("Chrimas Party At Grace Family Church", new DateTime(2024, 12, 24), "Community")
+                } },
+                { "entertainment", new HashSet<Event> { new Event("Music Festival At Chris Saunders Park", new DateTime(2024, 11, 28), "Entertainment") } }
             };
 
             // Populate upcomingEvents queue with events ordered by date
-            upcomingEvents = new Queue<Event>(new[]
-            {
-                new Event("Farmers Market", new DateTime(2024, 10, 17), "Community"),
-                new Event("Community Cleanup", new DateTime(2024, 10, 21), "Environment"),
-                new Event("Tech Meetup", new DateTime(2024, 10, 24), "Technology"),
-                new Event("Local Art Exhibition", new DateTime(2024, 10, 28), "Culture"),
-                new Event("Town Hall Meeting", new DateTime(2024, 11, 4), "Governance"),
-                new Event("Sports Tournament", new DateTime(2024, 11, 11), "Sports"),
-                new Event("Music Festival", new DateTime(2024, 11, 28), "Entertainment"),
-                new Event("Charity Run", new DateTime(2024, 12, 13), "Sports")
-            });
+            upcomingEvents = new Queue<Event>(eventsByDate.Values.SelectMany(e => e).OrderBy(e => e.Date));
 
             // Populate uniqueCategories with all distinct event categories
-            uniqueCategories = new HashSet<string>
-            {
-                "environment", "culture", "governance", "sports", "technology", "community", "entertainment"
-            };
+            uniqueCategories = new HashSet<string>(eventsByCategory.Keys);
 
             // Populate uniqueDates with all distinct event dates
-            uniqueDates = new HashSet<DateTime>
-            {
-                new DateTime(2024, 10, 17),
-                new DateTime(2024, 10, 21),
-                new DateTime(2024, 10, 24),
-                new DateTime(2024, 10, 28),
-                new DateTime(2024, 11, 4),
-                new DateTime(2024, 11, 11),
-                new DateTime(2024, 11, 28),
-                new DateTime(2024, 12, 13)
-            };
+            uniqueDates = new HashSet<DateTime>(eventsByDate.Keys);
 
             // Initialize recentSearches and searchHistory as empty queues
             recentSearches = new Queue<string>();
@@ -148,12 +127,9 @@ namespace MunicipalServicesApplication
             string[] dateFormats = { "M/d/yy", "MM/dd/yyyy", "yyyy-MM-dd", "MMMM d, yyyy", "MMM d, yyyy" };
             if (DateTime.TryParseExact(searchTerm, dateFormats, CultureInfo.InvariantCulture, DateTimeStyles.None, out searchDate))
             {
-                foreach (var date in eventsByDate.Keys)
+                if (eventsByDate.ContainsKey(searchDate))
                 {
-                    if (date.Date == searchDate.Date)
-                    {
-                        searchResults.UnionWith(eventsByDate[date]);
-                    }
+                    searchResults.UnionWith(eventsByDate[searchDate]);
                 }
             }
             else
