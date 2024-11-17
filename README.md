@@ -104,6 +104,15 @@ Installation
 
 ![image](https://github.com/user-attachments/assets/4023dfed-59cc-4ba7-a63f-fbe650fa549f)
 
+7. Service Request Status
+
+![VCDN-BCA3 - 2024-11-17T195846 - lab-2271f54a-c899-4627-8a1b-0265c056dd29 westeurope cloudapp azure com_7123 - Remote Desktop Connection 2024_11_17 21_22_06](https://github.com/user-attachments/assets/44b25508-ca34-452b-b0f2-ab7d47c3d2a2)
+
+
+![VCDN-BCA3 - 2024-11-17T195846 - lab-2271f54a-c899-4627-8a1b-0265c056dd29 westeurope cloudapp azure com_7123 - Remote Desktop Connection 2024_11_17 21_23_23](https://github.com/user-attachments/assets/d0368cfb-717f-4b56-9b9c-e549d81b41f3)
+
+
+
 
 
   
