@@ -193,5 +193,7 @@
         <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Content="Reported Issues:" Margin="0,20,0,0"/>
         <ListBox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Name="lstReportedIssues" 
                  Margin="0,5,0,0" Height="120" VerticalAlignment="Top"/>
+        
+        
     </Grid>
 </Window>

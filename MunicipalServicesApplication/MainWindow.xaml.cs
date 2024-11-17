@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using MunicipalServicesApplication;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -52,6 +53,13 @@ namespace MunicipalServicesApplication
             eventsForm.Show();
             this.Close();
 
+        }
+
+        private void btnServiceRequestStatus_Click(object sender, RoutedEventArgs e)
+        {
+            ServiceRequestStatus serviceForm = new ServiceRequestStatus();
+            serviceForm.Show();
+            this.Close();
         }
     }
 }
