@@ -102,7 +102,8 @@ Installation
 - Recent search functionality is provided, and searches are stored in a queue for quick access.
 - Users can filter events by date, name or category.
 
-![VCDN-BCA3 - 2024-10-14T161102 - lab-2271f54a-c899-4627-8a1b-0265c056dd29 westeurope cloudapp azure com_7123 - Remote Desktop Connection 2024_10_14 16_22_35](https://github.com/user-attachments/assets/e5214fd9-4293-4721-ba8f-a140d8762868)
+![image](https://github.com/user-attachments/assets/4023dfed-59cc-4ba7-a63f-fbe650fa549f)
+
 
 
   
