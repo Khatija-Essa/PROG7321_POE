@@ -105,15 +105,115 @@ Installation
 ![image](https://github.com/user-attachments/assets/4023dfed-59cc-4ba7-a63f-fbe650fa549f)
 
 7. Service Request Status
+The "Service Request Status" feature manages and tracks the progress of service requests, allowing users to see dependencies, change statuses, and engage with a dynamic set of tasks. This feature is created with a variety of data structures, including graphs, binary search trees, heaps, lists, dictionaries, and combo boxes, to ensure optimal performance, user experience, and efficiency.
 
 ![VCDN-BCA3 - 2024-11-17T195846 - lab-2271f54a-c899-4627-8a1b-0265c056dd29 westeurope cloudapp azure com_7123 - Remote Desktop Connection 2024_11_17 21_22_06](https://github.com/user-attachments/assets/44b25508-ca34-452b-b0f2-ab7d47c3d2a2)
 
 
 ![VCDN-BCA3 - 2024-11-17T195846 - lab-2271f54a-c899-4627-8a1b-0265c056dd29 westeurope cloudapp azure com_7123 - Remote Desktop Connection 2024_11_17 21_23_23](https://github.com/user-attachments/assets/d0368cfb-717f-4b56-9b9c-e549d81b41f3)
 
+1. Graph (for Service Request Dependencies)
+- Role:
+A graph is used to represent the dependencies between service requests. In this setting, each service request is modelled as a node, with directed edges representing the relationships (dependencies) between them. This graph helps us see which service requests are dependent on others.
+- Contribution to Efficiency:
+Efficient Traversal: Graphs have a structure that enables rapid traversal of dependent nodes. Using graph techniques such as depth-first or breadth-first search, we can quickly locate all tasks that are reliant on a single request.
+Fast Dependency Lookup: By representing the graph using a dictionary or adjacency list, we can quickly locate and visualise all of the dependents for a service request in the TreeView.
 
+```bash
+foreach (var request in requestGraph.GetAllNodes())
+{
+    var dependencies = requestGraph.GetNeighbors(request);
+    if (dependencies.Count > 0)
+    {
+        var rootNode = new TreeViewItem { Header = new TextBlock { Text = $"{request.Description} depends on:" } };
+        foreach (var dependentRequest in dependencies)
+        {
+            var childNode = new TreeViewItem { Header = new TextBlock { Text = $"• {dependentRequest.Description}" } };
+            rootNode.Items.Add(childNode);
+        }
+        DependencyTreeView.Items.Add(rootNode);
+    }
+}
+```
 
+2. Binary Search Tree (for Service Request Ordering):
+- Role:
+A binary search tree (BST) is a technique for efficiently storing and retrieving service requests in sorted order based on certain criteria, such as request priority, date created, or progress status. BSTs enable for fast insertion, deletion, and searching in O(log n) time.
+- Contribution to Efficiency:
+Efficient Sorting and Searching: The binary search tree ensures that service requests are always maintained in an ordered format, making it simple to obtain them based on certain criteria, such as the most recent or highest priority requests.
+Optimised Performance: The BST has logarithmic time complexity for search operations, which means that even as the number of service requests increases, the system can still run efficiently.
+```bash
+Example: 
+// Example of adding a service request to a binary search tree
+binarySearchTree.Add(new ServiceRequest { Priority = 1, Description = "Fix plumbing issue" });
+binarySearchTree.Add(new ServiceRequest { Priority = 3, Description = "Electrical repairs" });
+binarySearchTree.Add(new ServiceRequest { Priority = 2, Description = "Paint the wall" });
+```
 
+4. List (for Service Requests):
+- Role: 
+A List<ServiceRequest> stores all service requests in memory. This collection offers fast access and editing features, allowing users to quickly examine and update service request statuses.
+- Contribution to Efficiency:
+Dynamic Data Handling: The list offers efficient dynamic resizing and constant-time indexing. This makes it an excellent data structure for storing a list of requests that are regularly updated.
+Simple Management: Lists enable simple management of requests, such as adding new requests, removing requests, or changing their status.
+
+```bash
+Example: 
+// Accessing and modifying a service request's status
+var selectedRequest = ServiceRequestDataGrid.SelectedItem as ServiceRequest;
+selectedRequest.Status = "In Progress";
+ServiceRequestDataGrid.Items.Refresh();
+```
+
+5. Dictionary (for Service Request Graph):
+Role:
+A dictionary is used to describe the graph of service requests, with each key-value pair denoting a service request and its dependent requests. This enables faster lookups and more efficient depiction of task dependencies.
+- Contribution to Efficiency:
+  Fast Dependency Access: By using a dictionary for the graph's adjacency list representation, accessing a service request's dependencies takes only O(1) time on average.
+  Efficient Graph Representation: This structure makes it easier to build and traverse graphs, allowing for more efficient investigation of dependencies and task linkages.
+
+```bash
+example:
+// Getting the neighbors (dependencies) of a specific request using a dictionary
+var dependencies = requestGraph.GetNeighbors(request);
+```
+6. ComboBox (for Status Selection):
+- Role:
+  The ComboBox is used to pick a new status for a service request from predefined alternatives such as "Pending", "In Progress", or "Completed".
+- Contribution to Efficiency:
+  User-Friendly Interface: The ComboBox simplifies status selection by guaranteeing that the user chooses only valid statuses. This prevents invalid status entries and enhances the user experience.
+  Efficient Status Updates: When a status is selected, the accompanying service request can be swiftly changed, and the system will reflect the change right away.
+
+```bash
+Example:
+// Setting the status of a selected service request based on ComboBox selection
+var selectedStatus = (StatusComboBox.SelectedItem as ComboBoxItem)?.Content as string;
+selectedRequest.Status = selectedStatus;
+```
+
+7. DataGrid (for Displaying Service Requests):
+-Role:
+The DataGrid displays the list of service requests in a tabular style. It enables the sorting, filtering, and altering of service request data.
+- Contribution to Efficiency:
+Interactive User Interface: The DataGrid allows users to easily interact with the list of service requests. It offers real-time updates and refreshes when a service request's status changes.
+Sorting and Filtering: Users can sort and filter the DataGrid's data, making it easier to identify and handle requests based on criteria such as status or priority.
+
+```bash
+Example:
+// Refreshing the DataGrid after status change
+ServiceRequestDataGrid.Items.Refresh();
+```
+
+Role of Each Data Structure in the Feature’s Efficiency
+Each data structure contributes to the "Service Request Status" feature in the following ways:
+
+- Graph: Efficiently manages and visualizes dependencies between service requests.
+- Binary Search Tree (BST): Ensures efficient storage, sorting, and retrieval of service requests.
+- Heap (Priority Queue): Allows for efficient scheduling and management of service requests based on priority.
+- List: Provides efficient dynamic management and updates of service requests.
+- Dictionary: Enables fast lookups and management of service request dependencies.
+- ComboBox: Provides a simple and user-friendly interface for updating the status of service requests.
+- DataGrid: Displays service requests interactively with support for sorting, filtering, and dynamic updates.
 
   
 # User Engagement Strategy
