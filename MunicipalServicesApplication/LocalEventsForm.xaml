@@ -5,157 +5,340 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MunicipalServicesApplication"
         mc:Ignorable="d"
-        Title="Local Events and Announcements" Height="600" Width="1000"
-        Background="#1E1E1E">
+        Title="Local Events and Announcements" 
+        Height="700" 
+        Width="1200"
+        Background="#1E1E1E"
+        WindowStartupLocation="CenterScreen">
+
     <Window.Resources>
-        <Style TargetType="Button">
-            <Setter Property="Background" Value="#035772"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+
+        <!-- GridView Column Header Style -->
+        <Style TargetType="GridViewColumnHeader">
+            <Setter Property="Background" Value="#2D2D2D"/>
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderBrush" Value="#1E90FF"/>
-            <Setter Property="FontFamily" Value="Segoe UI"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Padding" Value="5"/>
-            <Setter Property="Margin" Value="2"/>
-            <Setter Property="Width" Value="70"/>
-            <Setter Property="Height" Value="28"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Effect">
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
                 <Setter.Value>
-                    <DropShadowEffect ShadowDepth="2" Opacity="0.5" BlurRadius="3"/>
+                    <ControlTemplate TargetType="GridViewColumnHeader">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Padding="{TemplateBinding Padding}">
+                            <TextBlock Text="{TemplateBinding Content}"
+                                     Foreground="{TemplateBinding Foreground}"
+                                     HorizontalAlignment="Left"/>
+                        </Border>
+                    </ControlTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>
+
+        <!-- Enhanced Button Style -->
+        <Style TargetType="Button" x:Key="ModernButton">
+            <Setter Property="Background" Value="#2D8CFF"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="15,8"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="MinWidth" Value="80"/>
+            <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="0"
+                                CornerRadius="4"
+                                x:Name="border">
+                            <Grid>
+                                <ContentPresenter HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"/>
+                                <Border x:Name="shine"
+                                        CornerRadius="4"
+                                        Opacity="0">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Color="#40FFFFFF" Offset="0"/>
+                                            <GradientStop Color="Transparent" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                </Border>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="shine" 
+                                                           Storyboard.TargetProperty="Opacity"
+                                                           To="1" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="shine" 
+                                                           Storyboard.TargetProperty="Opacity"
+                                                           To="0" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Enhanced TextBox Style -->
+        <Style TargetType="TextBox" x:Key="ModernTextBox">
+            <Setter Property="Background" Value="#2A2A2A"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#404040"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="3"
+                                CornerRadius="4">
+                            <Grid>
+                                <TextBlock Text="Search events..."
+                                         Foreground="#666666"
+                                         Margin="10,8,0,0"
+                                         Visibility="{Binding Path=Text, 
+                                                    RelativeSource={RelativeSource TemplatedParent}, 
+                                                    Converter={StaticResource BooleanToVisibilityConverter}, 
+                                                    ConverterParameter=True}"/>
+                                <ScrollViewer x:Name="PART_ContentHost"
+                                            Margin="0"
+                                            VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="BorderBrush" Value="#2D8CFF"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- List View Item Style -->
+        <Style TargetType="ListViewItem" x:Key="ModernListViewItem">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="#404040"
+                                BorderThickness="0,0,0,1"
                                 Padding="{TemplateBinding Padding}">
-                            <ContentPresenter HorizontalAlignment="Center"
-                                              VerticalAlignment="Center"
-                                              Content="{TemplateBinding Content}"
-                                              ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                            <GridViewRowPresenter TextBlock.Foreground="White"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#A5C8D4"/>
-                    <Setter Property="BorderBrush" Value="#1E90FF"/>
-                    <Setter Property="Foreground" Value="Black"/>
+                    <Setter Property="Background" Value="#3D3D3D"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#2D8CFF"/>
+                    <Setter Property="Foreground" Value="White"/>
                 </Trigger>
             </Style.Triggers>
-        </Style>
-
-        <Style TargetType="Label">
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontFamily" Value="Segoe UI"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="FontSize" Value="12"/>
-        </Style>
-
-        <Style TargetType="TextBox">
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Background" Value="#333333"/>
-            <Setter Property="BorderBrush" Value="White"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="3"/>
-            <Setter Property="Margin" Value="2"/>
-            <Style.Triggers>
-                <Trigger Property="IsFocused" Value="True">
-                    <Setter Property="BorderBrush" Value="LightBlue"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <Style TargetType="ListViewItem">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderBrush" Value="White"/>
-            <Setter Property="BorderThickness" Value="0,0,0,1"/>
-            <Setter Property="Padding" Value="5"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#A5C8D4"/>
-                    <Setter Property="Foreground" Value="Black"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <Style x:Key="EventNameStyle" TargetType="TextBlock">
-            <Setter Property="TextWrapping" Value="Wrap"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
     </Window.Resources>
 
-    <Grid Margin="10">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
 
-        <TextBlock Text="Back to Home"
-            FontSize="12"
-            Foreground="#A5C8D4"
-            HorizontalAlignment="Right"
-            Margin="0,0,5,5"
-            Cursor="Hand"
-            TextDecorations="Underline"
-            MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" 
-            Grid.Column="1"/>
+        <!-- Top Toolbar -->
+        <Border Grid.Row="0" Background="#252525">
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="1" BlurRadius="4" Opacity="0.3"/>
+            </Border.Effect>
+            <Grid Height="60">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="0,0,0,5">
-            <TextBox x:Name="txtSearch" Width="200" Margin="0,0,5,0"/>
-            <Button x:Name="btnSearch" Content="Search" Click="btnSearch_Click"/>
-            <Button x:Name="btnClear" Content="Clear" Click="btnClear_Click" Margin="5,0,0,0"/>
-        </StackPanel>
+                <!-- Navigation Buttons -->
+                <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="10,0">
+                    <Button Style="{StaticResource ModernButton}" 
+                            Content="← Back" 
+                            Click="BackButton_Click"/>
+                    <Button Style="{StaticResource ModernButton}" 
+                            Content="🏠 Home" 
+                            Click="HomeButton_Click"
+                            Margin="5,0"/>
+                </StackPanel>
 
-        <StackPanel Grid.Row="2" Grid.Column="0" Margin="0,0,5,0">
-            <Label Content="Events:" Margin="0,0,0,2"/>
-            <ListView x:Name="listViewEvents" Background="#333333" Foreground="White" BorderBrush="White" BorderThickness="1">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Date" Width="100" DisplayMemberBinding="{Binding Date, StringFormat={}{0:MM/dd/yyyy}}"/>
-                        <GridViewColumn Header="Name" Width="250">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Name}" Style="{StaticResource EventNameStyle}"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="Category" Width="120" DisplayMemberBinding="{Binding Category}"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </StackPanel>
+                <!-- Title -->
+                <TextBlock Grid.Column="1" 
+                          Text="Local Events and Announcements" 
+                          Foreground="White"
+                          FontSize="22"
+                          FontWeight="SemiBold"
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Center"/>
 
-        <StackPanel Grid.Row="2" Grid.Column="1" Margin="5,0,0,0">
-            <Label Content="Recommendations:" Margin="0,0,0,2"/>
-            <ListView x:Name="listViewRecommendations" Background="#333333" Foreground="White" BorderBrush="White" BorderThickness="1">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Date" Width="100" DisplayMemberBinding="{Binding Date, StringFormat={}{0:MM/dd/yyyy}}"/>
-                        <GridViewColumn Header="Name" Width="250">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Name}" Style="{StaticResource EventNameStyle}"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="Category" Width="120" DisplayMemberBinding="{Binding Category}"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </StackPanel>
+                <!-- Exit Button -->
+                <Button Grid.Column="2" 
+                        Style="{StaticResource ModernButton}"
+                        Content="✕ Exit"
+                        Click="ExitButton_Click"
+                        Margin="10,0,50,15"
+                        Background="#FF4444"/>
+            </Grid>
+        </Border>
+
+        <!-- Main Content -->
+        <Grid Grid.Row="1" Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Search Panel -->
+            <Border Grid.Row="0" 
+                    Grid.ColumnSpan="2" 
+                    Background="#252525" 
+                    CornerRadius="8" 
+                    Padding="15"
+                    Margin="0,0,0,20">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="1" BlurRadius="4" Opacity="0.3"/>
+                </Border.Effect>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox x:Name="txtSearch" 
+                            Style="{StaticResource ModernTextBox}"
+                            Width="300"
+                            Margin="0,0,10,0"/>
+                    <Button x:Name="btnSearch" 
+                            Style="{StaticResource ModernButton}"
+                            Content="🔍 Search" 
+                            Click="btnSearch_Click"/>
+                    <Button x:Name="btnClear" 
+                            Style="{StaticResource ModernButton}"
+                            Content="Clear" 
+                            Click="btnClear_Click"
+                            Background="#666666"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Events List -->
+            <Border Grid.Row="1" 
+                    Grid.Column="0" 
+                    Background="#252525" 
+                    CornerRadius="8" 
+                    Margin="0,0,10,0"
+                    Padding="15">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="1" BlurRadius="4" Opacity="0.3"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Upcoming Events" 
+                             Foreground="White" 
+                             FontSize="18" 
+                             FontWeight="SemiBold"
+                             Margin="0,0,0,10"/>
+
+                    <ListView Grid.Row="1" 
+                             x:Name="listViewEvents"
+                             Background="Transparent"
+                             BorderThickness="0"
+                             Foreground="White"
+                             ItemContainerStyle="{StaticResource ModernListViewItem}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Date" 
+                                              Width="100" 
+                                              DisplayMemberBinding="{Binding Date, StringFormat={}{0:MM/dd/yyyy}}"/>
+                                <GridViewColumn Header="Event Name" 
+                                              Width="250" 
+                                              DisplayMemberBinding="{Binding Name}"/>
+                                <GridViewColumn Header="Category" 
+                                              Width="150" 
+                                              DisplayMemberBinding="{Binding Category}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </Border>
+
+            <!-- Recommendations -->
+            <Border Grid.Row="1" 
+                    Grid.Column="1" 
+                    Background="#252525" 
+                    CornerRadius="8" 
+                    Margin="10,0,0,0"
+                    Padding="15">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="1" BlurRadius="4" Opacity="0.3"/>
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Recommended for You" 
+                             Foreground="White" 
+                             FontSize="18" 
+                             FontWeight="SemiBold"
+                             Margin="0,0,0,10"/>
+
+                    <ListView Grid.Row="1" 
+                             x:Name="listViewRecommendations"
+                             Background="Transparent"
+                             BorderThickness="0"
+                             Foreground="White"
+                             ItemContainerStyle="{StaticResource ModernListViewItem}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Date" 
+                                              Width="100" 
+                                              DisplayMemberBinding="{Binding Date, StringFormat={}{0:MM/dd/yyyy}}"/>
+                                <GridViewColumn Header="Event Name" 
+                                              Width="250" 
+                                              DisplayMemberBinding="{Binding Name}"/>
+                                <GridViewColumn Header="Category" 
+                                              Width="150" 
+                                              DisplayMemberBinding="{Binding Category}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </Border>
+        </Grid>
     </Grid>
 </Window>

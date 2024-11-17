@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Globalization;
+using System.Windows.Navigation;
 
 namespace MunicipalServicesApplication
 {
     public partial class LocalEventsForm : Window
     {
-        // Data structures to store and organize events the user of Dictionary, Queue and hashset 
+        // Data structures to store and organize events using Dictionary, Queue and hashset 
         private Dictionary<DateTime, List<Event>> eventsByDate;
         private Dictionary<string, HashSet<Event>> eventsByCategory;
         private Queue<Event> upcomingEvents;
@@ -24,6 +26,7 @@ namespace MunicipalServicesApplication
             InitializeDataStructures();
             PopulateSampleData();
             DisplayEvents();
+            CustomizeListViewHeaders();
         }
 
         // Initialize all data structures used in the application
@@ -83,6 +86,19 @@ namespace MunicipalServicesApplication
             // Initialize recentSearches and searchHistory as empty queues
             recentSearches = new Queue<string>();
             searchHistory = new Queue<string>();
+        }
+
+        // Apply custom styling to ListView headers
+        private void CustomizeListViewHeaders()
+        {
+            Style headerStyle = new Style(typeof(GridViewColumnHeader));
+            headerStyle.Setters.Add(new Setter(BackgroundProperty, new SolidColorBrush(Color.FromRgb(45, 45, 45))));
+            headerStyle.Setters.Add(new Setter(ForegroundProperty, Brushes.White));
+            headerStyle.Setters.Add(new Setter(PaddingProperty, new Thickness(10, 8, 10, 8)));
+            headerStyle.Setters.Add(new Setter(BorderThicknessProperty, new Thickness(0)));
+
+            listViewEvents.Resources.Add(typeof(GridViewColumnHeader), headerStyle);
+            listViewRecommendations.Resources.Add(typeof(GridViewColumnHeader), headerStyle);
         }
 
         // Display all events in the ListView
@@ -216,12 +232,28 @@ namespace MunicipalServicesApplication
             listViewRecommendations.ItemsSource = recommendations.OrderBy(e => e.Date).Take(5);
         }
 
-        // Event handler to return back to MainWindow
-        private void TextBlock_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        // Navigation event handlers
+        private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            var mainWin = new MainWindow();
-            mainWin.Show();
-            Close(); // Close current window
+            var mainWindow = new MainWindow();
+            mainWindow.Show();
+            this.Close();
+        }
+
+        private void HomeButton_Click(object sender, RoutedEventArgs e)
+        {
+            var mainWindow = new MainWindow();
+            mainWindow.Show();
+            this.Close();
+        }
+
+        private void ExitButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to exit?", "Confirm Exit",
+                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                Application.Current.Shutdown();
+            }
         }
 
         // Event handler to clear user search 
