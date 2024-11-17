@@ -8,7 +8,7 @@
         WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
-        <!-- DataGrid Cell Style -->
+
         <Style x:Key="DataGridCellStyle" TargetType="DataGridCell">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="White"/>
@@ -21,7 +21,6 @@
             </Style.Triggers>
         </Style>
 
-        <!-- DataGrid Column Header Style -->
         <Style x:Key="DataGridColumnHeaderStyle" TargetType="DataGridColumnHeader">
             <Setter Property="Background" Value="#2D2D2D"/>
             <Setter Property="Foreground" Value="White"/>
@@ -30,7 +29,6 @@
             <Setter Property="BorderBrush" Value="#404040"/>
         </Style>
 
-        <!-- Button Style -->
         <Style x:Key="ModernButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="#0078D4"/>
             <Setter Property="Foreground" Value="White"/>
@@ -66,7 +64,6 @@
             <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
 
-        <!-- Header Section with Navigation -->
         <Border Grid.Row="0" Grid.ColumnSpan="2" Background="#035772" Padding="10">
             <Border.Effect>
                 <DropShadowEffect ShadowDepth="1" BlurRadius="4" Opacity="0.3"/>
@@ -95,9 +92,8 @@
             </DockPanel>
         </Border>
 
-        <!-- Main Content Area -->
         <Grid Grid.Row="1" Grid.Column="0" Margin="10">
-            <!-- DataGrid View -->
+
             <DataGrid x:Name="ServiceRequestDataGrid" 
                       AutoGenerateColumns="False" 
                       IsReadOnly="True" 
@@ -118,7 +114,6 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-            <!-- Graph View -->
             <Canvas x:Name="GraphCanvas" 
                     Background="#252525" 
                     Visibility="Collapsed"
@@ -136,9 +131,8 @@
             </Canvas>
         </Grid>
 
-        <!-- Right Panel -->
         <StackPanel Grid.Row="1" Grid.Column="1" Margin="10" VerticalAlignment="Top">
-            <!-- Status Change Section -->
+
             <Border x:Name="StatusChangeSection"
                     Background="#252525" 
                     BorderBrush="#404040" 
@@ -171,7 +165,6 @@
                 </StackPanel>
             </Border>
 
-            <!-- Dependencies Section -->
             <Border x:Name="DependenciesSection"
                     Background="#252525" 
                     BorderBrush="#404040" 
@@ -203,7 +196,6 @@
                 </StackPanel>
             </Border>
 
-            <!-- View Toggle Button -->
             <Button x:Name="ShowGraphButton" 
                     Content="Show Graph View" 
                     Click="ShowGraphButton_Click" 
