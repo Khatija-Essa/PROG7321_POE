@@ -83,7 +83,8 @@ Installation
 - Go main to main page. user cn return back to the mainwindows form.
 - All data is saved in a list on the report an issue form.
 
-  ![VCDN-BCA3 - 2024-09-10T200118 - lab-2271f54a-c899-4627-8a1b-0265c056dd29 westeurope cloudapp azure com_7123 - Remote Desktop Connection 2024_09_10 21_33_51](https://github.com/user-attachments/assets/022a3fcb-1da8-4037-bc93-ac71938a83dc)
+![VCDN-BCA3 - 2024-11-17T195846 - lab-2271f54a-c899-4627-8a1b-0265c056dd29 westeurope cloudapp azure com_7123 - Remote Desktop Connection 2024_11_17 20_09_07](https://github.com/user-attachments/assets/c9f51ea0-0204-4d1c-82e4-f8cc7f62b006)
+
 
   
 5. User Profiles
